@@ -14,18 +14,15 @@ public partial class ApplicationFormService : IApplicationFormService
     private readonly IApplicationFormBuilder applicationBuilder;
     private readonly IQuestionBuilder fieldComponentBuilder;
     private readonly IRepository repository;
-    private readonly IValidator<UpdateQuestion> validator;
 
     public ApplicationFormService(
         IApplicationFormBuilder applicationBuilder,
         IQuestionBuilder fieldComponentBuilder,
-        IRepository repository,
-        IValidator<UpdateQuestion> validator)
+        IRepository repository)
     {
         this.applicationBuilder = applicationBuilder;
         this.fieldComponentBuilder = fieldComponentBuilder;
         this.repository = repository;
-        this.validator = validator;
     }
 
     public Result<CreatedApplicationForm> CreateNewForm(CreateApplicationForm application)
@@ -46,7 +43,7 @@ public partial class ApplicationFormService : IApplicationFormService
         try
         {
             repository.AddApplicationForm(newApplication);
-            repository.SaveApplicationFormAsync();
+            repository.CommitChangesAsync();
         }
         catch (Exception ex)
         {
@@ -120,7 +117,7 @@ public partial class ApplicationFormService : IApplicationFormService
             applicationInDb.Questions.Add(questionForUpdate);
 
             repository.UpdateApplicationForm(applicationInDb);
-            await repository.SaveApplicationFormAsync();
+            await repository.CommitChangesAsync();
 
             var updatedApplicationForm = MapFrom(applicationInDb);
 
@@ -134,5 +131,30 @@ public partial class ApplicationFormService : IApplicationFormService
                 "Internal.Error",
                 true);
         }
+    }
+
+    public async Task<Result> SaveSubmission(
+        string applicationId,
+        CreateApplicationSubmission applicationSubmission)
+    {
+        var submission = MapFrom(applicationSubmission);
+        submission.ApplicationId = applicationId;
+
+        submission.Id = Guid.NewGuid().ToString();
+        try
+        {
+            repository.AddSubmission(submission);
+            await repository.CommitChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            //@TODO: log exception somewhere
+            return new Error(
+                "unable to save submission, please re-try again",
+                "Internal.Error",
+                true);
+        }
+
+        return new Success();
     }
 }

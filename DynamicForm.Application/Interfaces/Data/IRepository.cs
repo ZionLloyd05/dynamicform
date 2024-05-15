@@ -6,11 +6,13 @@ public interface IRepository
 {
     void AddApplicationForm(ApplicationForm applicationForm);
 
-    Task SaveApplicationFormAsync();
+    Task CommitChangesAsync();
 
     Task<IEnumerable<ApplicationForm>> RetrieveApplications();
 
     Task<ApplicationForm?> GetApplicationAsync(string Id);
 
     void UpdateApplicationForm(ApplicationForm applicationForm);
+
+    void AddSubmission(ApplicationSubmission submission);
 }

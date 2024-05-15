@@ -58,5 +58,20 @@ namespace DynamicForm.API.Controllers
 
             return Ok(applicationForms);
         }
+
+        [HttpPost]
+        [Route("{applicationId}/submit")]
+        public async Task<IActionResult> SubmitApplication(
+            string applicationId, [FromBody]CreateApplicationSubmission submission)
+        {
+            var submissionResult = await applicationService.SaveSubmission(
+                applicationId, 
+                submission);
+
+            if (submissionResult.HasError)
+                return BadRequest(submissionResult.Error);
+
+            return Ok();
+        }
     }
 }

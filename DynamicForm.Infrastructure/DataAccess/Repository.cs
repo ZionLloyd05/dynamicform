@@ -28,7 +28,7 @@ public class Repository : IRepository
         return applications;
     }
 
-    public async Task SaveApplicationFormAsync()
+    public async Task CommitChangesAsync()
     {
         await context.SaveChangesAsync();
     }
@@ -42,5 +42,10 @@ public class Repository : IRepository
     public void UpdateApplicationForm(ApplicationForm applicationForm)
     {
         context.Update(applicationForm);
+    }
+
+    public void AddSubmission(ApplicationSubmission submission)
+    {
+        context.Add(submission);
     }
 }

@@ -65,4 +65,12 @@ public partial class ApplicationFormService
 
         return originalQuestion;
     }
+
+    ApplicationSubmission MapFrom(CreateApplicationSubmission submission)
+    {
+        return new ApplicationSubmission
+        {
+            UserData = submission.UserData,
+        };
+    }
 }

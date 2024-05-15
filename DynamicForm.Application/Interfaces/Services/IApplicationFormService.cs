@@ -13,4 +13,8 @@ public interface IApplicationFormService
         string applicationId,
         string questionId,
         UpdateQuestion question);
+
+    Task<Result> SaveSubmission(
+        string applicationId,
+        CreateApplicationSubmission applicationSubmission);
 }
