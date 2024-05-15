@@ -34,7 +34,7 @@ public partial class ApplicationFormService : IApplicationFormService
             .AddFormDetails(
                 title: application.Title,
                 description: application.Description)
-            .AddFieldComponents(
+            .AddQuestions(
                 fieldComponents: application.Questions)
             .BuildForm();
 

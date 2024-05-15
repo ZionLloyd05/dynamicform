@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DynamicForm.Application.Const;
+﻿using DynamicForm.Application.Const;
 using DynamicForm.Application.DTOs;
 using DynamicForm.Bases;
 using Xunit;
@@ -24,7 +19,7 @@ public partial class ApplicationFormServiceTests
             false);
 
         // when
-        Result<CreatedApplicationForm> createApplicationFormResult = 
+        Result<CreatedApplicationForm> createApplicationFormResult =
             this.applicationFormService.CreateNewApplication(invalidApplicationForm);
 
         // then

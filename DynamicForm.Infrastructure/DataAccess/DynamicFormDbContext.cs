@@ -29,7 +29,7 @@ public class DynamicFormDbContext : DbContext
 
         var dynamicFormSection = config.GetRequiredSection("DynamicFormConfig");
 
-        var accountEndpoint = dynamicFormSection.GetSection("AccountEndpoint").Value ?? 
+        var accountEndpoint = dynamicFormSection.GetSection("AccountEndpoint").Value ??
             throw new ArgumentNullException();
         var accountKey = dynamicFormSection.GetSection("AccountKey").Value ??
             throw new ArgumentNullException();

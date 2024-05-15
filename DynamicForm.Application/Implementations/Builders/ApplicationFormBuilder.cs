@@ -4,8 +4,6 @@ using DynamicForm.Application.DTOs;
 using DynamicForm.Application.Interfaces.Builders;
 using DynamicForm.Application.Validations;
 using DynamicForm.Bases;
-using DynamicForm.Domain.Models;
-using FluentValidation;
 
 namespace DynamicForm.Application.Implementations.Builders;
 
@@ -22,6 +20,12 @@ public class ApplicationFormBuilder : IApplicationFormBuilder
         form = new Domain.Models.ApplicationForm();
     }
 
+    /// <summary>
+    /// Add details to application form
+    /// </summary>
+    /// <param name="title"></param>
+    /// <param name="description"></param>
+    /// <returns></returns>
     public IApplicationFormBuilder AddFormDetails(string title, string description)
     {
         form.Title = title;
@@ -45,7 +49,12 @@ public class ApplicationFormBuilder : IApplicationFormBuilder
         return this;
     }
 
-    public IApplicationFormBuilder AddFieldComponents(ICollection<CreateQuestion> fieldComponents)
+    /// <summary>
+    /// Add questions to application form
+    /// </summary>
+    /// <param name="fieldComponents"></param>
+    /// <returns></returns>
+    public IApplicationFormBuilder AddQuestions(ICollection<CreateQuestion> fieldComponents)
     {
         foreach (var field in fieldComponents)
         {
