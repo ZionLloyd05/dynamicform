@@ -1,8 +1,11 @@
-﻿using DynamicForm.Application.DTOs;
+﻿using System.Text;
+using DynamicForm.Application.DTOs;
 using DynamicForm.Application.Interfaces.Builders;
 using DynamicForm.Application.Interfaces.Data;
 using DynamicForm.Application.Interfaces.Services;
 using DynamicForm.Bases;
+using DynamicForm.Domain.Models;
+using FluentValidation;
 
 namespace DynamicForm.Application.Implementations.Services;
 
@@ -11,15 +14,18 @@ public partial class ApplicationFormService : IApplicationFormService
     private readonly IApplicationFormBuilder applicationBuilder;
     private readonly IQuestionBuilder fieldComponentBuilder;
     private readonly IRepository repository;
+    private readonly IValidator<UpdateQuestion> validator;
 
     public ApplicationFormService(
         IApplicationFormBuilder applicationBuilder,
         IQuestionBuilder fieldComponentBuilder,
-        IRepository repository)
+        IRepository repository,
+        IValidator<UpdateQuestion> validator)
     {
         this.applicationBuilder = applicationBuilder;
         this.fieldComponentBuilder = fieldComponentBuilder;
         this.repository = repository;
+        this.validator = validator;
     }
 
     public Result<CreatedApplicationForm> CreateNewForm(CreateApplicationForm application)
@@ -84,6 +90,10 @@ public partial class ApplicationFormService : IApplicationFormService
     {
         try
         {
+            var validationResult = ValidateQuestion(question);
+            if (validationResult.HasError)
+                return validationResult.Error;
+
             var applicationInDb = await repository.GetApplicationAsync(applicationId);
 
             if (applicationInDb == null)
