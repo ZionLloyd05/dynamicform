@@ -7,4 +7,6 @@ public interface IRepository
     void AddApplicationForm(ApplicationForm applicationForm);
 
     Task SaveApplicationFormAsync();
+
+    Task<IEnumerable<ApplicationForm>> RetrieveApplications();
 }

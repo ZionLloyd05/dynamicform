@@ -16,7 +16,7 @@ namespace DynamicForm.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateForm([FromBody] CreateApplicationForm form)
+        public IActionResult CreateApplicationForm([FromBody] CreateApplicationForm form)
         {
             var newApplicationResult = applicationService.CreateNewForm(form);
 
@@ -26,6 +26,19 @@ namespace DynamicForm.API.Controllers
             var newApplication = newApplicationResult.Value;
 
             return Ok(newApplication);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetApplicationForms()
+        {
+            var applicationFormResult = await applicationService.GetApplications();
+
+            if (applicationFormResult.HasError)
+                return BadRequest(applicationFormResult.Error);
+
+            var applicationForms = applicationFormResult.Value;
+
+            return Ok(applicationForms);
         }
     }
 }

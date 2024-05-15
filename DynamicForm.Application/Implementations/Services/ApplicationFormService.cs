@@ -3,6 +3,7 @@ using DynamicForm.Application.Interfaces.Builders;
 using DynamicForm.Application.Interfaces.Data;
 using DynamicForm.Application.Interfaces.Services;
 using DynamicForm.Bases;
+using Microsoft.AspNetCore.Builder;
 
 namespace DynamicForm.Application.Implementations.Services;
 
@@ -56,8 +57,24 @@ public partial class ApplicationFormService : IApplicationFormService
         return newApplicationForReturn;
     }
 
-    public Result<ICollection<CreatedApplicationForm>> GetApplications(CreateApplicationForm application)
+    public async Task<Result<IReadOnlyCollection<CreatedApplicationForm>>> GetApplications()
     {
-        throw new NotImplementedException();
+        try
+        {
+            var applications = await repository.RetrieveApplications();
+            ICollection<CreatedApplicationForm> applicationForms = 
+                applications.Select(form => MapFrom(form))
+                .ToList();
+
+            return applicationForms.ToList().AsReadOnly();
+        }
+        catch (Exception ex)
+        {
+            //@TODO: log exception somewhere
+            return new Error(
+                "unable to retrieve applications, please re-try again",
+                "Internal.Error",
+                true);
+        }
     }
 }

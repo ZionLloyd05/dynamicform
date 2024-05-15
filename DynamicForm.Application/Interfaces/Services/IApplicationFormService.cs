@@ -7,5 +7,5 @@ public interface IApplicationFormService
 {
     Result<CreatedApplicationForm> CreateNewForm(CreateApplicationForm application);
 
-    Result<ICollection<CreatedApplicationForm>> GetApplications(CreateApplicationForm application);
+    Task<Result<IReadOnlyCollection<CreatedApplicationForm>>> GetApplications();
 }
