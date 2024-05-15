@@ -1,6 +1,7 @@
 ﻿using DynamicForm.Abstractions;
 using DynamicForm.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace DynamicForm.Infrastructure.DataAccess;
 
@@ -20,10 +21,25 @@ public class DynamicFormDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        var builder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json");
+
+        var config = builder.Build();
+
+        var dynamicFormSection = config.GetRequiredSection("DynamicFormConfig");
+
+        var accountEndpoint = dynamicFormSection.GetSection("AccountEndpoint").Value ?? 
+            throw new ArgumentNullException();
+        var accountKey = dynamicFormSection.GetSection("AccountKey").Value ??
+            throw new ArgumentNullException();
+        var databaseName = dynamicFormSection.GetSection("DatabaseName").Value ??
+            throw new ArgumentNullException();
+
         optionsBuilder.UseCosmos(
-            accountEndpoint: "https://localhost:8081",
-            accountKey: "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
-            databaseName: "form-db");
+            accountEndpoint: accountEndpoint,
+            accountKey: accountKey,
+            databaseName: databaseName);
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
