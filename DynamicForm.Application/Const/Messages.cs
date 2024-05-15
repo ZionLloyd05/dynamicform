@@ -10,6 +10,9 @@ public class Messages
 {
     public const string TITLE_ERROR = "title cannot be empty";
     public const string DESCRIPTION_ERROR = "description is invalid";
+    public const string QUESTIONLABEL_ERROR = "label cannot be empty";
+    public const string QUESTIONTYPE_ERROR = "question type not supported";
+    public const string QUESTIONCATEGORY_ERROR = "question category not supported";
 }
 
 

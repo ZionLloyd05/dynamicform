@@ -1,4 +1,5 @@
-﻿using DynamicForm.Domain.Enums;
+﻿using DynamicForm.Application.Const;
+using DynamicForm.Domain.Enums;
 using DynamicForm.Domain.Models;
 using FluentValidation;
 
@@ -12,15 +13,15 @@ public class QuestionValidator : AbstractValidator<Question>
             .NotEmpty()
             .MinimumLength(3)
             .MaximumLength(30)
-            .WithMessage("label cannot be empty");
+            .WithMessage(Messages.QUESTIONLABEL_ERROR);
 
         RuleFor(field => field.QuestionType)
             .IsInEnum()
-            .WithMessage("question type not supported");
+            .WithMessage(Messages.QUESTIONTYPE_ERROR);
 
         RuleFor(field => field.QuestionCategory)
             .IsInEnum()
-            .WithMessage("question category not supported");
+            .WithMessage(Messages.QUESTIONCATEGORY_ERROR);
 
         RuleFor(field => field.QuestionMetaData)
             .Must(field => field?.Count > 0)

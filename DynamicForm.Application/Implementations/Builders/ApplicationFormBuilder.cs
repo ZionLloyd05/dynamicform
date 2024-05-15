@@ -83,7 +83,7 @@ public class ApplicationFormBuilder : IApplicationFormBuilder
 
         if (hasErrors)
         {
-            return new Error(validationErrors.ToString(), ErrorCodes.INVALID_QUESTION, false);
+            return new Error(validationErrors.ToString(), ErrorCodes.INVALID_FORM, false);
         }
 
         form.Id = Guid.NewGuid().ToString();

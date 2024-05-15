@@ -4,6 +4,7 @@ using DynamicForm.Application.Implementations.Services;
 using DynamicForm.Application.Interfaces.Builders;
 using DynamicForm.Application.Interfaces.Data;
 using DynamicForm.Application.Interfaces.Services;
+using DynamicForm.Domain.Enums;
 using Moq;
 
 namespace DynamicForm.Tests.Services.ApplicationForm;
@@ -46,6 +47,29 @@ public partial class ApplicationFormServiceTests
             Title = "Hello",
             Description = string.Empty,
             Questions = new List<CreateQuestion>(),
+        };
+
+        return applicationForm;
+    }
+
+    public CreateApplicationForm CreateApplicationWithEmptyQuestionLabel()
+    {
+        var applicationForm = new CreateApplicationForm()
+        {
+            Title = "Hello",
+            Description = "description for hello",
+            Questions = new List<CreateQuestion>()
+            {
+                new CreateQuestion()
+                {
+                    Label = string.Empty,
+                    Placeholder = "hello",
+                    QuestionCategory = QuestionCategory.PersonalInformation,
+                    QuestionType = QuestionType.Text,
+                    QuestionMetaData = new List<CreateQuestionMetaData>(),
+                    Validator = new CreateQuestionValidator()
+                }
+            },
         };
 
         return applicationForm;
