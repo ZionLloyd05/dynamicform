@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DynamicForm.Domain.Models;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace DynamicForm.Application.Validations;
 
-public class FormValidator : AbstractValidator<Form>
+public class ApplicationValidator : AbstractValidator<Domain.Models.Application>
 {
-    public FormValidator()
+    public ApplicationValidator()
     {
         RuleFor(form => form.Title)
             .NotEmpty()

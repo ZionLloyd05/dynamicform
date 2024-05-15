@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DynamicForm.Domain.Enums;
+﻿using DynamicForm.Domain.Enums;
 using DynamicForm.Domain.Models;
 using FluentValidation;
 
@@ -11,8 +6,8 @@ namespace DynamicForm.Application.Validations;
 
 public class FieldComponentValidator : AbstractValidator<FieldComponent>
 {
-	public FieldComponentValidator()
-	{
+    public FieldComponentValidator()
+    {
         RuleFor(field => field.Label)
             .NotEmpty()
             .MinimumLength(3)

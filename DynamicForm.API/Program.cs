@@ -1,5 +1,11 @@
+using DynamicForm.Application.Implementations.Builders;
+using DynamicForm.Application.Implementations.Services;
+using DynamicForm.Application.Interfaces.Builders;
+using DynamicForm.Application.Interfaces.Services;
 using DynamicForm.Application.Validations;
 using FluentValidation;
+using ApplicationBuilder = DynamicForm.Application.Implementations.Builders.ApplicationBuilder;
+using IApplicationBuilder = DynamicForm.Application.Interfaces.Builders.IApplicationBuilder;
 
 namespace DynamicForm.API
 {
@@ -18,6 +24,11 @@ namespace DynamicForm.API
 
             builder.Services
                 .AddValidatorsFromAssemblyContaining<FieldComponentValidator>();
+
+            builder.Services.AddScoped<IApplicationBuilder, ApplicationBuilder>();
+            builder.Services.AddScoped<IApplicationService, ApplicationService>();
+            builder.Services.AddScoped<IFieldComponentBuilder, FieldComponentBuilder>();
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             var app = builder.Build();
 

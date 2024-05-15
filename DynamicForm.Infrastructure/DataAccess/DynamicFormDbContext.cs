@@ -14,7 +14,7 @@ public class DynamicFormDbContext : DbContext
     {
     }
 
-    public DbSet<Form> Forms { get; set; } = default!;
+    public DbSet<Application> Applications { get; set; } = default!;
     public DbSet<FieldComponent> FieldComponents { get; set; } = default!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using DynamicForm.Application.DTOs;
 using DynamicForm.Application.Interfaces.Builders;
 using DynamicForm.Bases;
@@ -12,26 +7,26 @@ using FluentValidation;
 
 namespace DynamicForm.Application.Implementations.Builders;
 
-internal class FormBuilder : IFormBuilder
+public class ApplicationBuilder : IApplicationBuilder
 {
-    private readonly Form form;
+    private readonly Domain.Models.Application form;
 
     private StringBuilder formErrors;
     private bool hasErrors = false;
-    private readonly IValidator<Form> formValidator;
+    private readonly IValidator<Domain.Models.Application> formValidator;
     private readonly IValidator<FieldComponent> fieldValidator;
 
-    public FormBuilder(
-        IValidator<Form> formValidator,
+    public ApplicationBuilder(
+        IValidator<Domain.Models.Application> formValidator,
         IValidator<FieldComponent> fieldValidator)
     {
         this.formValidator = formValidator;
         this.fieldValidator = fieldValidator;
         formErrors = new StringBuilder();
-        form = new Form();
+        form = new Domain.Models.Application();
     }
 
-    public IFormBuilder AddFormDetails(string title, string description)
+    public IApplicationBuilder AddFormDetails(string title, string description)
     {
         form.Title = title;
         form.Description = description;
@@ -53,7 +48,7 @@ internal class FormBuilder : IFormBuilder
         return this;
     }
 
-    public IFormBuilder AddFieldComponents(ICollection<CreateFieldComponent> fieldComponents)
+    public IApplicationBuilder AddFieldComponents(ICollection<CreateFieldComponent> fieldComponents)
     {
         foreach (var field in fieldComponents)
         {
@@ -85,7 +80,7 @@ internal class FormBuilder : IFormBuilder
         return this;
     }
 
-    public Result<Form> BuildForm()
+    public Result<Domain.Models.Application> BuildForm()
     {
         var validationErrors = formErrors.ToString();
 

@@ -11,6 +11,6 @@ public class FieldComponent : BaseEntity<string>
     public FieldComponentValidation Validator { get; set; } = new();
     public ICollection<FieldMetaData>? FieldMetaData { get; set; }
 
-    public string ProgramFormId { get; set; }
-    public virtual Form ProgramForm { get; set; } = default!;
+    public string ApplicationId { get; set; }
+    public virtual Application Application { get; set; } = default!;
 }
