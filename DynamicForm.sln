@@ -3,7 +3,49 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicForm", "DynamicForm\DynamicForm.csproj", "{A6DB5202-3DC9-418A-B57F-BBD0A1179D47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicForm.Application", "DynamicForm.Application\DynamicForm.Application.csproj", "{3C8AAC63-9F8D-4B28-AB86-AB45431B12CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicForm.Domain", "DynamicForm.Domain\DynamicForm.Domain.csproj", "{90ABA1E5-D34D-4174-B2C0-09937225E9E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicForm.Infrastructure", "DynamicForm.Infrastructure\DynamicForm.Infrastructure.csproj", "{C4F9EC37-B232-4A58-A383-BE0F992932CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicForm.API", "DynamicForm.API\DynamicForm.API.csproj", "{4577C996-BB51-44F6-9029-EE34B54771C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicForm.Tests", "DynamicForm.Tests\DynamicForm.Tests.csproj", "{896F965B-A391-49F8-8796-94F5B425CFBC}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A6DB5202-3DC9-418A-B57F-BBD0A1179D47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6DB5202-3DC9-418A-B57F-BBD0A1179D47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6DB5202-3DC9-418A-B57F-BBD0A1179D47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6DB5202-3DC9-418A-B57F-BBD0A1179D47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C8AAC63-9F8D-4B28-AB86-AB45431B12CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C8AAC63-9F8D-4B28-AB86-AB45431B12CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C8AAC63-9F8D-4B28-AB86-AB45431B12CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C8AAC63-9F8D-4B28-AB86-AB45431B12CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90ABA1E5-D34D-4174-B2C0-09937225E9E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90ABA1E5-D34D-4174-B2C0-09937225E9E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90ABA1E5-D34D-4174-B2C0-09937225E9E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90ABA1E5-D34D-4174-B2C0-09937225E9E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4F9EC37-B232-4A58-A383-BE0F992932CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4F9EC37-B232-4A58-A383-BE0F992932CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4F9EC37-B232-4A58-A383-BE0F992932CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4F9EC37-B232-4A58-A383-BE0F992932CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4577C996-BB51-44F6-9029-EE34B54771C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4577C996-BB51-44F6-9029-EE34B54771C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4577C996-BB51-44F6-9029-EE34B54771C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4577C996-BB51-44F6-9029-EE34B54771C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{896F965B-A391-49F8-8796-94F5B425CFBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{896F965B-A391-49F8-8796-94F5B425CFBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{896F965B-A391-49F8-8796-94F5B425CFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{896F965B-A391-49F8-8796-94F5B425CFBC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
