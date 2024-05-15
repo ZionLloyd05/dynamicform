@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using DynamicForm.Application.DTOs;
 using DynamicForm.Application.Validations;
 using DynamicForm.Bases;
+using DynamicForm.Domain.Models;
 
 namespace DynamicForm.Application.Implementations.Services;
 
@@ -25,7 +22,27 @@ public partial class ApplicationFormService
             }
 
             return new Error(errors.ToString(), "Invalid.Question", false);
-            
+
+        }
+
+        return new Success();
+    }
+
+    public Result ValidateSubmission(ApplicationSubmission submission)
+    {
+        SubmissionValidator validator = new SubmissionValidator();
+        var validationResult = validator.Validate(submission);
+
+        if (!validationResult.IsValid)
+        {
+            var errors = new StringBuilder();
+            foreach (var error in validationResult.Errors)
+            {
+                errors.Append($"{error.PropertyName} - {error.ErrorMessage} | ");
+            }
+
+            return new Error(errors.ToString(), "Invalid.Question", false);
+
         }
 
         return new Success();

@@ -62,10 +62,10 @@ namespace DynamicForm.API.Controllers
         [HttpPost]
         [Route("{applicationId}/submit")]
         public async Task<IActionResult> SubmitApplication(
-            string applicationId, [FromBody]CreateApplicationSubmission submission)
+            string applicationId, [FromBody] CreateApplicationSubmission submission)
         {
             var submissionResult = await applicationService.SaveSubmission(
-                applicationId, 
+                applicationId,
                 submission);
 
             if (submissionResult.HasError)

@@ -1,5 +1,4 @@
-﻿using System.Text;
-using DynamicForm.Application.DTOs;
+﻿using DynamicForm.Application.DTOs;
 using DynamicForm.Application.Interfaces.Builders;
 using DynamicForm.Application.Interfaces.Data;
 using DynamicForm.Application.Interfaces.Services;
@@ -25,6 +24,11 @@ public partial class ApplicationFormService : IApplicationFormService
         this.repository = repository;
     }
 
+    /// <summary>
+    /// Create an application
+    /// </summary>
+    /// <param name="application"></param>
+    /// <returns></returns>
     public Result<CreatedApplicationForm> CreateNewForm(CreateApplicationForm application)
     {
         var newApplicationResult = applicationBuilder
@@ -59,6 +63,10 @@ public partial class ApplicationFormService : IApplicationFormService
         return newApplicationForReturn;
     }
 
+    /// <summary>
+    /// Get applications
+    /// </summary>
+    /// <returns></returns>
     public async Task<Result<IReadOnlyCollection<CreatedApplicationForm>>> GetApplications()
     {
         try
@@ -80,6 +88,13 @@ public partial class ApplicationFormService : IApplicationFormService
         }
     }
 
+    /// <summary>
+    /// Update a question in a particular application
+    /// </summary>
+    /// <param name="applicationId"></param>
+    /// <param name="questionId"></param>
+    /// <param name="question"></param>
+    /// <returns></returns>
     public async Task<Result<CreatedApplicationForm>> UpdateQuestionInApplication(
         string applicationId,
         string questionId,
@@ -133,6 +148,12 @@ public partial class ApplicationFormService : IApplicationFormService
         }
     }
 
+    /// <summary>
+    /// Save application submission
+    /// </summary>
+    /// <param name="applicationId"></param>
+    /// <param name="applicationSubmission"></param>
+    /// <returns></returns>
     public async Task<Result> SaveSubmission(
         string applicationId,
         CreateApplicationSubmission applicationSubmission)
@@ -141,6 +162,11 @@ public partial class ApplicationFormService : IApplicationFormService
         submission.ApplicationId = applicationId;
 
         submission.Id = Guid.NewGuid().ToString();
+
+        var validationResult = ValidateSubmission(submission);
+        if (validationResult.HasError)
+            return validationResult.Error;
+
         try
         {
             repository.AddSubmission(submission);
