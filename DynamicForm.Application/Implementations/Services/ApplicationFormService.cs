@@ -3,7 +3,6 @@ using DynamicForm.Application.Interfaces.Builders;
 using DynamicForm.Application.Interfaces.Data;
 using DynamicForm.Application.Interfaces.Services;
 using DynamicForm.Bases;
-using DynamicForm.Domain.Models;
 using FluentValidation;
 
 namespace DynamicForm.Application.Implementations.Services;
@@ -11,16 +10,16 @@ namespace DynamicForm.Application.Implementations.Services;
 public partial class ApplicationFormService : IApplicationFormService
 {
     private readonly IApplicationFormBuilder applicationBuilder;
-    private readonly IQuestionBuilder fieldComponentBuilder;
+    private readonly IQuestionBuilder questionBuilder;
     private readonly IRepository repository;
 
     public ApplicationFormService(
         IApplicationFormBuilder applicationBuilder,
-        IQuestionBuilder fieldComponentBuilder,
+        IQuestionBuilder questionBuilder,
         IRepository repository)
     {
         this.applicationBuilder = applicationBuilder;
-        this.fieldComponentBuilder = fieldComponentBuilder;
+        this.questionBuilder = questionBuilder;
         this.repository = repository;
     }
 
