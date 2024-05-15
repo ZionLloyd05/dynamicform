@@ -11,12 +11,12 @@ namespace DynamicForm.Application.Interfaces.Builders;
 
 public interface IFormBuilder
 {
-    IFormBuilder AddProgramFormDetails(
+    IFormBuilder AddFormDetails(
         string title,
         string description);
 
     IFormBuilder AddFieldComponents(
         ICollection<CreateFieldComponent> fieldComponents);
 
-    Result<Form> BuildForm(Form form);
+    Result<Form> BuildForm();
 }
