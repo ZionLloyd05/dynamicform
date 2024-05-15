@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using DynamicForm.Application.DTOs;
 using DynamicForm.Application.Interfaces.Builders;
+using DynamicForm.Application.Validations;
 using DynamicForm.Bases;
 using DynamicForm.Domain.Models;
 using FluentValidation;
@@ -13,15 +14,9 @@ public class ApplicationFormBuilder : IApplicationFormBuilder
 
     private StringBuilder formErrors;
     private bool hasErrors = false;
-    private readonly IValidator<Domain.Models.ApplicationForm> formValidator;
-    private readonly IValidator<Question> fieldValidator;
 
-    public ApplicationFormBuilder(
-        IValidator<Domain.Models.ApplicationForm> formValidator,
-        IValidator<Question> fieldValidator)
+    public ApplicationFormBuilder()
     {
-        this.formValidator = formValidator;
-        this.fieldValidator = fieldValidator;
         formErrors = new StringBuilder();
         form = new Domain.Models.ApplicationForm();
     }
@@ -31,6 +26,7 @@ public class ApplicationFormBuilder : IApplicationFormBuilder
         form.Title = title;
         form.Description = description;
 
+        var formValidator = new ApplicationFormValidator();
         var validationResult = formValidator.Validate(form);
 
         if (!validationResult.IsValid)
@@ -52,7 +48,7 @@ public class ApplicationFormBuilder : IApplicationFormBuilder
     {
         foreach (var field in fieldComponents)
         {
-            var fieldBuilder = new FieldComponentBuilder(fieldValidator);
+            var fieldBuilder = new QuestionBuilder();
 
             var fieldResult = fieldBuilder
                 .AddFieldKey(Guid.NewGuid().ToString())

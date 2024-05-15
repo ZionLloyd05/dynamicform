@@ -8,7 +8,8 @@ public class ApplicationFormValidator : AbstractValidator<Domain.Models.Applicat
     {
         RuleFor(form => form.Title)
             .NotEmpty()
-            .MinimumLength(3);
+            .MinimumLength(3)
+            .WithMessage("title cannot be empty");
 
         RuleFor(form => form.Description)
             .NotEmpty()

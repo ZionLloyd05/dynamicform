@@ -18,7 +18,7 @@ namespace DynamicForm.API.Controllers
         [HttpPost]
         public IActionResult CreateApplicationForm([FromBody] CreateApplicationForm form)
         {
-            var newApplicationResult = applicationService.CreateNewForm(form);
+            var newApplicationResult = applicationService.CreateNewApplication(form);
 
             if (newApplicationResult.HasError)
                 return BadRequest(newApplicationResult.Error);

@@ -5,7 +5,7 @@ namespace DynamicForm.Application.Interfaces.Services;
 
 public interface IApplicationFormService
 {
-    Result<CreatedApplicationForm> CreateNewForm(CreateApplicationForm application);
+    Result<CreatedApplicationForm> CreateNewApplication(CreateApplicationForm application);
 
     Task<Result<IReadOnlyCollection<CreatedApplicationForm>>> GetApplications();
 

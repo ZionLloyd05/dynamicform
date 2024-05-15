@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using DynamicForm.Application.DTOs;
 using DynamicForm.Application.Interfaces.Builders;
+using DynamicForm.Application.Validations;
 using DynamicForm.Bases;
 using DynamicForm.Domain.Enums;
 using DynamicForm.Domain.Models;
@@ -8,17 +9,14 @@ using FluentValidation;
 
 namespace DynamicForm.Application.Implementations.Builders;
 
-public class FieldComponentBuilder : IQuestionBuilder
+public class QuestionBuilder : IQuestionBuilder
 {
     private readonly Question question;
-    private readonly IValidator<Question> validator;
     private StringBuilder questionErrors;
     private bool hasErrors;
 
-    public FieldComponentBuilder(IValidator<Question> validator)
+    public QuestionBuilder()
     {
-        this.validator = validator;
-
         questionErrors = new StringBuilder();
         question = new Question();
         hasErrors = false;
@@ -96,6 +94,7 @@ public class FieldComponentBuilder : IQuestionBuilder
             QuestionId = question.Id
         }).ToList();
 
+        QuestionValidator validator = new QuestionValidator();
         var validationResult = validator.Validate(question);
 
         if (!validationResult.IsValid)

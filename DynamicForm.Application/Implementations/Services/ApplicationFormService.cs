@@ -28,7 +28,7 @@ public partial class ApplicationFormService : IApplicationFormService
     /// </summary>
     /// <param name="application"></param>
     /// <returns></returns>
-    public Result<CreatedApplicationForm> CreateNewForm(CreateApplicationForm application)
+    public Result<CreatedApplicationForm> CreateNewApplication(CreateApplicationForm application)
     {
         var newApplicationResult = applicationBuilder
             .AddFormDetails(

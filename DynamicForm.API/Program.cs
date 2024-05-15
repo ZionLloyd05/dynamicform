@@ -30,7 +30,7 @@ namespace DynamicForm.API
             builder.Services.AddScoped<IRepository, Repository>();
             builder.Services.AddScoped<IApplicationFormBuilder, ApplicationFormBuilder>();
             builder.Services.AddScoped<IApplicationFormService, ApplicationFormService>();
-            builder.Services.AddScoped<IQuestionBuilder, FieldComponentBuilder>();
+            builder.Services.AddScoped<IQuestionBuilder, QuestionBuilder>();
 
             builder.Services.AddDbContext<DynamicFormDbContext>();
 
