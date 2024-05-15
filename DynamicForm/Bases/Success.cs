@@ -1,6 +1,5 @@
-﻿namespace DynamicForm.Bases
+﻿namespace DynamicForm.Bases;
+
+public readonly struct Success
 {
-    internal class Success
-    {
-    }
 }

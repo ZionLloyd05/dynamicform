@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DynamicForm.Domain.Models;
+﻿using DynamicForm.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DynamicForm.Infrastructure.Configurations;
 
-public class ProgramFormConfiguration : IEntityTypeConfiguration<ProgramForm>
-{ 
-    public void Configure(EntityTypeBuilder<ProgramForm> builder)
+public class ProgramFormConfiguration : IEntityTypeConfiguration<Form>
+{
+    public void Configure(EntityTypeBuilder<Form> builder)
     {
         builder.HasKey(x => x.Id);
 

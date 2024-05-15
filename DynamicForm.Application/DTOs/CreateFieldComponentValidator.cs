@@ -1,6 +1,12 @@
-﻿namespace DynamicForm.Domain.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class FieldComponentValidation : BaseEntity<string>
+namespace DynamicForm.Application.DTOs;
+
+public class CreateFieldComponentValidator
 {
     public bool IsRequired { get; set; }
     public bool IsInternal { get; set; }
