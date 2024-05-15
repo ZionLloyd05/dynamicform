@@ -22,7 +22,7 @@ public interface IFieldComponentBuilder
         QuestionCategory questionCategory,
         QuestionType questionType);
 
-    IFieldComponentBuilder AddFieldValues(
+    IFieldComponentBuilder AddFieldMetadata(
         ICollection<CreateFieldMetaData>? fieldMetaData);
 
     IFieldComponentBuilder AddFieldValidators(

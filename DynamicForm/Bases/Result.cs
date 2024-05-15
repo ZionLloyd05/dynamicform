@@ -82,3 +82,4 @@ public record Result
     {
         return new Result();
     }
+}

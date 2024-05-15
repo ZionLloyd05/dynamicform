@@ -1,3 +1,6 @@
+using DynamicForm.Application.Validations;
+using FluentValidation;
+
 namespace DynamicForm.API
 {
     public class Program
@@ -12,6 +15,9 @@ namespace DynamicForm.API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services
+                .AddValidatorsFromAssemblyContaining<FieldComponentValidator>();
 
             var app = builder.Build();
 

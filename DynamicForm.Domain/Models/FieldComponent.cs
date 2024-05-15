@@ -8,7 +8,6 @@ public class FieldComponent : BaseEntity<string>
     public string Placeholder { get; set; } = string.Empty;
     public QuestionType QuestionType { get; set; }
     public QuestionCategory QuestionCategory { get; set; }
-    public string InputPropsMetadata { get; set; } = string.Empty;
     public FieldComponentValidation Validator { get; set; } = new();
     public ICollection<FieldMetaData>? FieldMetaData { get; set; }
 
