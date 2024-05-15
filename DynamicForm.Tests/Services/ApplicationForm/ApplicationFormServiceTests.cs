@@ -38,4 +38,16 @@ public partial class ApplicationFormServiceTests
 
         return applicationForm;
     }
+
+    public CreateApplicationForm CreateApplicationWithEmptyDescription()
+    {
+        var applicationForm = new CreateApplicationForm()
+        {
+            Title = "Hello",
+            Description = string.Empty,
+            Questions = new List<CreateQuestion>(),
+        };
+
+        return applicationForm;
+    }
 }

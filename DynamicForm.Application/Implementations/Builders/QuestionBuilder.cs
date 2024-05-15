@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using DynamicForm.Application.Const;
 using DynamicForm.Application.DTOs;
 using DynamicForm.Application.Interfaces.Builders;
 using DynamicForm.Application.Validations;
@@ -123,7 +124,7 @@ public class QuestionBuilder : IQuestionBuilder
 
         if (hasErrors)
         {
-            return new Error(validationErrors.ToString(), "Invalid.Field", false);
+            return new Error(validationErrors.ToString(), ErrorCodes.INVALID_QUESTION, false);
         }
 
         return question;

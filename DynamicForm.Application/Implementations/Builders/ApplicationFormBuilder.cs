@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using DynamicForm.Application.Const;
 using DynamicForm.Application.DTOs;
 using DynamicForm.Application.Interfaces.Builders;
 using DynamicForm.Application.Validations;
@@ -82,7 +83,7 @@ public class ApplicationFormBuilder : IApplicationFormBuilder
 
         if (hasErrors)
         {
-            return new Error(validationErrors.ToString(), "Invalid.Form", false);
+            return new Error(validationErrors.ToString(), ErrorCodes.INVALID_QUESTION, false);
         }
 
         form.Id = Guid.NewGuid().ToString();
