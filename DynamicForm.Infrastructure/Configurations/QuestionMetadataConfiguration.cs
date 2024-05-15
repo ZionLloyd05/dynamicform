@@ -1,5 +1,5 @@
 ﻿namespace DynamicForm.Infrastructure.Configurations;
 
-public class FieldMetadataConfiguration
+public class QuestionMetadataConfiguration
 {
 }

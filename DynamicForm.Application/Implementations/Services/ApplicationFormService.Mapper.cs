@@ -12,7 +12,7 @@ public partial class ApplicationFormService
             Id = application.Id,
             Title = application.Title,
             Description = application.Description,
-            FieldComponents = application.FieldComponents.Select(field => new CreatedFieldComponent
+            Questions = application.Questions.Select(field => new CreatedQuestion
             {
                 Id = field.Id,
                 ApplicationFormId = application.Id,
@@ -20,10 +20,10 @@ public partial class ApplicationFormService
                 Placeholder = field.Placeholder,
                 QuestionCategory = field.QuestionCategory,
                 QuestionType = field.QuestionType,
-                Validator = new CreatedFieldComponentValidator
+                Validator = new CreatedQuestionValidator
                 {
                     Id = field.Validator.Id,
-                    FieldComponentId = field.Id,
+                    QuestionId = field.Id,
                     IsRequired = field.Validator.IsRequired,
                     IsInternal = field.Validator.IsInternal,
                     MinLength = field.Validator.MinLength,
@@ -31,10 +31,10 @@ public partial class ApplicationFormService
                     MaxSelection = field.Validator.MaxLength,
                     ShouldAllowOther = field.Validator.ShouldAllowOther,
                 },
-                FieldMetaData = field.FieldMetaData?.Select(data => new CreatedFieldMetaData
+                QuestionMetaData = field.QuestionMetaData?.Select(data => new CreatedQuestionMetaData
                 {
                     Id = data.Id,
-                    FieldComponentId = field.Id,
+                    QuestionId = field.Id,
                     Label = data.Label,
                     Value = data.Value,
                 }).ToList()
@@ -42,5 +42,27 @@ public partial class ApplicationFormService
         };
 
         return convertedApplicationForm;
+    }
+
+    Question MapFrom(Question originalQuestion, UpdateQuestion question)
+    {
+        originalQuestion.Label = question.Label;
+        originalQuestion.Placeholder = question.Placeholder;
+        originalQuestion.QuestionCategory = question.QuestionCategory;
+        originalQuestion.QuestionType = question.QuestionType;
+        originalQuestion.Validator.IsRequired = question.Validator.IsRequired;
+        originalQuestion.Validator.IsInternal = question.Validator.IsInternal;
+        originalQuestion.Validator.MinLength = question.Validator.MinLength;
+        originalQuestion.Validator.MaxLength = question.Validator.MaxLength;
+        originalQuestion.Validator.ShouldAllowOther = question.Validator.ShouldAllowOther;
+        originalQuestion.QuestionMetaData = question.QuestionMetaData?.Select(data => new QuestionMetaData
+        {
+            Id = Guid.NewGuid().ToString(),
+            QuestionId = originalQuestion.Id,
+            Label = data.Label,
+            Value = data.Value,
+        }).ToList();
+
+        return originalQuestion;
     }
 }

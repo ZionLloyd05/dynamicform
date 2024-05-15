@@ -10,12 +10,12 @@ public class DynamicFormProfile : Profile
     {
         CreateMap<ApplicationForm, CreatedApplicationForm>();
 
-        CreateMap<FieldComponent, CreatedFieldComponent>();
+        CreateMap<Question, CreatedQuestion>();
 
-        CreateMap<FieldComponentValidation, CreatedFieldComponentValidator>();
+        CreateMap<QuestionValidation, CreatedQuestionValidator>();
 
-        CreateMap<FieldComponent, CreatedFieldComponent>();
+        CreateMap<Question, CreatedQuestion>();
 
-        CreateMap<FieldMetaData, CreatedFieldMetaData>();
+        CreateMap<QuestionMetaData, CreatedQuestionMetaData>();
     }
 }

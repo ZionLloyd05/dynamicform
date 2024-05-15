@@ -6,11 +6,11 @@ namespace DynamicForm.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class DynamicFormController : ControllerBase
+    public class DynamicFormsController : ControllerBase
     {
         private readonly IApplicationFormService applicationService;
 
-        public DynamicFormController(IApplicationFormService applicationService)
+        public DynamicFormsController(IApplicationFormService applicationService)
         {
             this.applicationService = applicationService;
         }
@@ -32,6 +32,24 @@ namespace DynamicForm.API.Controllers
         public async Task<IActionResult> GetApplicationForms()
         {
             var applicationFormResult = await applicationService.GetApplications();
+
+            if (applicationFormResult.HasError)
+                return BadRequest(applicationFormResult.Error);
+
+            var applicationForms = applicationFormResult.Value;
+
+            return Ok(applicationForms);
+        }
+
+        [HttpPut]
+        [Route("{applicationId}/questions/{questionId}")]
+        public async Task<IActionResult> UpdateApplicationQuestion(
+            string applicationId, string questionId, [FromBody] UpdateQuestion question)
+        {
+            var applicationFormResult = await applicationService.UpdateQuestionInApplication(
+                applicationId,
+                questionId,
+                question);
 
             if (applicationFormResult.HasError)
                 return BadRequest(applicationFormResult.Error);

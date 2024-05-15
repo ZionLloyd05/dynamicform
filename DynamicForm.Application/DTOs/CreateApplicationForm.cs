@@ -4,6 +4,6 @@ public class CreateApplicationForm
 {
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public ICollection<CreateFieldComponent> FieldComponents { get; set; }
-       = new List<CreateFieldComponent>();
+    public ICollection<CreateQuestion> Questions { get; set; }
+       = new List<CreateQuestion>();
 }

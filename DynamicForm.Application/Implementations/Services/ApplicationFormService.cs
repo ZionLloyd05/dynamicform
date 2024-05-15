@@ -3,19 +3,18 @@ using DynamicForm.Application.Interfaces.Builders;
 using DynamicForm.Application.Interfaces.Data;
 using DynamicForm.Application.Interfaces.Services;
 using DynamicForm.Bases;
-using Microsoft.AspNetCore.Builder;
 
 namespace DynamicForm.Application.Implementations.Services;
 
 public partial class ApplicationFormService : IApplicationFormService
 {
     private readonly IApplicationFormBuilder applicationBuilder;
-    private readonly IFieldComponentBuilder fieldComponentBuilder;
+    private readonly IQuestionBuilder fieldComponentBuilder;
     private readonly IRepository repository;
 
     public ApplicationFormService(
         IApplicationFormBuilder applicationBuilder,
-        IFieldComponentBuilder fieldComponentBuilder,
+        IQuestionBuilder fieldComponentBuilder,
         IRepository repository)
     {
         this.applicationBuilder = applicationBuilder;
@@ -30,7 +29,7 @@ public partial class ApplicationFormService : IApplicationFormService
                 title: application.Title,
                 description: application.Description)
             .AddFieldComponents(
-                fieldComponents: application.FieldComponents)
+                fieldComponents: application.Questions)
             .BuildForm();
 
         if (newApplicationResult.HasError)
@@ -62,11 +61,60 @@ public partial class ApplicationFormService : IApplicationFormService
         try
         {
             var applications = await repository.RetrieveApplications();
-            ICollection<CreatedApplicationForm> applicationForms = 
+            ICollection<CreatedApplicationForm> applicationForms =
                 applications.Select(form => MapFrom(form))
                 .ToList();
 
             return applicationForms.ToList().AsReadOnly();
+        }
+        catch (Exception ex)
+        {
+            //@TODO: log exception somewhere
+            return new Error(
+                "unable to retrieve applications, please re-try again",
+                "Internal.Error",
+                true);
+        }
+    }
+
+    public async Task<Result<CreatedApplicationForm>> UpdateQuestionInApplication(
+        string applicationId,
+        string questionId,
+        UpdateQuestion question)
+    {
+        try
+        {
+            var applicationInDb = await repository.GetApplicationAsync(applicationId);
+
+            if (applicationInDb == null)
+                return new Error(
+                    $"application for with id {applicationId} does not exist",
+                    "Not.Found",
+                    false);
+
+            var questionForUpdate = applicationInDb.Questions
+                .Where(question => question.Id == questionId)
+                .SingleOrDefault();
+
+            if (questionForUpdate == null)
+                return new Error(
+                    $"question for with id {questionId} does not exist in application",
+                    "Not.Found",
+                    false);
+
+            var updatedQuestion = MapFrom(questionForUpdate, question);
+
+            applicationInDb.Questions
+                .Remove(questionForUpdate);
+
+            applicationInDb.Questions.Add(questionForUpdate);
+
+            repository.UpdateApplicationForm(applicationInDb);
+            await repository.SaveApplicationFormAsync();
+
+            var updatedApplicationForm = MapFrom(applicationInDb);
+
+            return updatedApplicationForm;
         }
         catch (Exception ex)
         {

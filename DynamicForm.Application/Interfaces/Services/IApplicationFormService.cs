@@ -8,4 +8,9 @@ public interface IApplicationFormService
     Result<CreatedApplicationForm> CreateNewForm(CreateApplicationForm application);
 
     Task<Result<IReadOnlyCollection<CreatedApplicationForm>>> GetApplications();
+
+    Task<Result<CreatedApplicationForm>> UpdateQuestionInApplication(
+        string applicationId,
+        string questionId,
+        UpdateQuestion question);
 }

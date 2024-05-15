@@ -8,19 +8,19 @@ using FluentValidation;
 
 namespace DynamicForm.Application.Implementations.Builders;
 
-public class FieldComponentBuilder : IFieldComponentBuilder
+public class FieldComponentBuilder : IQuestionBuilder
 {
-    private readonly FieldComponent fieldComponent;
-    private readonly IValidator<FieldComponent> validator;
-    private StringBuilder fieldErrors;
+    private readonly Question question;
+    private readonly IValidator<Question> validator;
+    private StringBuilder questionErrors;
     private bool hasErrors;
 
-    public FieldComponentBuilder(IValidator<FieldComponent> validator)
+    public FieldComponentBuilder(IValidator<Question> validator)
     {
         this.validator = validator;
 
-        fieldErrors = new StringBuilder();
-        fieldComponent = new FieldComponent();
+        questionErrors = new StringBuilder();
+        question = new Question();
         hasErrors = false;
     }
 
@@ -29,12 +29,12 @@ public class FieldComponentBuilder : IFieldComponentBuilder
     /// </summary>
     /// <param name="key"></param>
     /// <returns>IFieldComponentBuilder</returns>
-    public IFieldComponentBuilder AddFieldKey(string key)
+    public IQuestionBuilder AddFieldKey(string key)
     {
         if (string.IsNullOrEmpty(key))
             return this;
 
-        fieldComponent.Id = key;
+        question.Id = key;
 
         return this;
     }
@@ -47,12 +47,12 @@ public class FieldComponentBuilder : IFieldComponentBuilder
     /// <param name="questionCategory"></param>
     /// <param name="questionType"></param>
     /// <returns>IFieldComponentBuilder</returns>
-    public IFieldComponentBuilder AddFieldDetails(string label, string placeholder, QuestionCategory questionCategory, QuestionType questionType)
+    public IQuestionBuilder AddFieldDetails(string label, string placeholder, QuestionCategory questionCategory, QuestionType questionType)
     {
-        fieldComponent.Label = label;
-        fieldComponent.Placeholder = placeholder;
-        fieldComponent.QuestionCategory = questionCategory;
-        fieldComponent.QuestionType = questionType;
+        question.Label = label;
+        question.Placeholder = placeholder;
+        question.QuestionCategory = questionCategory;
+        question.QuestionType = questionType;
 
         return this;
     }
@@ -62,9 +62,9 @@ public class FieldComponentBuilder : IFieldComponentBuilder
     /// </summary>
     /// <param name="validator"></param>
     /// <returns>IFieldComponentBuilder</returns>
-    public IFieldComponentBuilder AddFieldValidators(CreateFieldComponentValidator validator)
+    public IQuestionBuilder AddFieldValidators(CreateQuestionValidator validator)
     {
-        fieldComponent.Validator = new FieldComponentValidation
+        question.Validator = new QuestionValidation
         {
             IsInternal = validator.IsInternal,
             IsRequired = validator.IsRequired,
@@ -82,21 +82,21 @@ public class FieldComponentBuilder : IFieldComponentBuilder
     /// </summary>
     /// <param name="fieldMetaData"></param>
     /// <returns>IFieldComponentBuilder</returns>
-    public IFieldComponentBuilder AddFieldMetadata(ICollection<CreateFieldMetaData>? fieldMetaData)
+    public IQuestionBuilder AddFieldMetadata(ICollection<CreateQuestionMetaData>? fieldMetaData)
     {
 
         if (fieldMetaData == null)
             return this;
 
-        fieldComponent.FieldMetaData = fieldMetaData.Select(fv => new FieldMetaData
+        question.QuestionMetaData = fieldMetaData.Select(fv => new QuestionMetaData
         {
             Id = Guid.NewGuid().ToString(),
             Label = fv.Label,
             Value = fv.Value,
-            FieldComponentId = fieldComponent.Id
+            QuestionId = question.Id
         }).ToList();
 
-        var validationResult = validator.Validate(fieldComponent);
+        var validationResult = validator.Validate(question);
 
         if (!validationResult.IsValid)
         {
@@ -106,7 +106,7 @@ public class FieldComponentBuilder : IFieldComponentBuilder
                 errors.Append($"{error.PropertyName} - {error.ErrorMessage} | ");
             }
 
-            fieldErrors.Append(errors.ToString());
+            questionErrors.Append(errors.ToString());
             hasErrors = true;
         }
 
@@ -118,15 +118,15 @@ public class FieldComponentBuilder : IFieldComponentBuilder
     /// Build Field Component
     /// </summary>
     /// <returns>Result of FieldComponent</returns>
-    public Result<FieldComponent> BuildFieldComponent()
+    public Result<Question> BuildFieldComponent()
     {
-        var validationErrors = fieldErrors.ToString();
+        var validationErrors = questionErrors.ToString();
 
         if (hasErrors)
         {
             return new Error(validationErrors.ToString(), "Invalid.Field", false);
         }
 
-        return fieldComponent;
+        return question;
     }
 }

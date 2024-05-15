@@ -1,6 +1,6 @@
-﻿namespace DynamicForm.Application.DTOs;
+﻿namespace DynamicForm.Domain.Models;
 
-public class CreateFieldComponentValidator
+public class QuestionValidation : BaseEntity<string>
 {
     public bool IsRequired { get; set; }
     public bool IsInternal { get; set; }

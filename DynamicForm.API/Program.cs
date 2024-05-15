@@ -25,12 +25,12 @@ namespace DynamicForm.API
             builder.Services.AddSwaggerGen();
 
             builder.Services
-                .AddValidatorsFromAssemblyContaining<FieldComponentValidator>();
+                .AddValidatorsFromAssemblyContaining<QuestionValidator>();
 
             builder.Services.AddScoped<IRepository, Repository>();
             builder.Services.AddScoped<IApplicationFormBuilder, ApplicationFormBuilder>();
             builder.Services.AddScoped<IApplicationFormService, ApplicationFormService>();
-            builder.Services.AddScoped<IFieldComponentBuilder, FieldComponentBuilder>();
+            builder.Services.AddScoped<IQuestionBuilder, FieldComponentBuilder>();
 
             builder.Services.AddDbContext<DynamicFormDbContext>();
 

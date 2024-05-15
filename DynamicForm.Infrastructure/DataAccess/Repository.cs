@@ -21,8 +21,8 @@ public class Repository : IRepository
     public async Task<IEnumerable<ApplicationForm>> RetrieveApplications()
     {
         var applications = await context.ApplicationForms.Include(
-                                fm => fm.FieldComponents)
-                            .ThenInclude(fm => fm.FieldMetaData)
+                                fm => fm.Questions)
+                            .ThenInclude(fm => fm.QuestionMetaData)
                         .ToListAsync();
 
         return applications;
@@ -33,5 +33,14 @@ public class Repository : IRepository
         await context.SaveChangesAsync();
     }
 
+    public async Task<ApplicationForm?> GetApplicationAsync(string Id)
+    {
+        return await context.ApplicationForms.Where(form => form.Id == Id)
+            .SingleOrDefaultAsync();
+    }
 
+    public void UpdateApplicationForm(ApplicationForm applicationForm)
+    {
+        context.Update(applicationForm);
+    }
 }

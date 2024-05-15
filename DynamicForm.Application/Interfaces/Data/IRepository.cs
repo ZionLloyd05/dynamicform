@@ -9,4 +9,8 @@ public interface IRepository
     Task SaveApplicationFormAsync();
 
     Task<IEnumerable<ApplicationForm>> RetrieveApplications();
+
+    Task<ApplicationForm?> GetApplicationAsync(string Id);
+
+    void UpdateApplicationForm(ApplicationForm applicationForm);
 }

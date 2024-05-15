@@ -14,11 +14,11 @@ public class ApplicationFormBuilder : IApplicationFormBuilder
     private StringBuilder formErrors;
     private bool hasErrors = false;
     private readonly IValidator<Domain.Models.ApplicationForm> formValidator;
-    private readonly IValidator<FieldComponent> fieldValidator;
+    private readonly IValidator<Question> fieldValidator;
 
     public ApplicationFormBuilder(
         IValidator<Domain.Models.ApplicationForm> formValidator,
-        IValidator<FieldComponent> fieldValidator)
+        IValidator<Question> fieldValidator)
     {
         this.formValidator = formValidator;
         this.fieldValidator = fieldValidator;
@@ -48,7 +48,7 @@ public class ApplicationFormBuilder : IApplicationFormBuilder
         return this;
     }
 
-    public IApplicationFormBuilder AddFieldComponents(ICollection<CreateFieldComponent> fieldComponents)
+    public IApplicationFormBuilder AddFieldComponents(ICollection<CreateQuestion> fieldComponents)
     {
         foreach (var field in fieldComponents)
         {
@@ -62,7 +62,7 @@ public class ApplicationFormBuilder : IApplicationFormBuilder
                     questionCategory: field.QuestionCategory,
                     questionType: field.QuestionType)
                 .AddFieldMetadata(
-                    fieldMetaData: field.FieldMetaData)
+                    fieldMetaData: field.QuestionMetaData)
                 .AddFieldValidators(
                     validator: field.Validator)
                 .BuildFieldComponent();
@@ -75,7 +75,7 @@ public class ApplicationFormBuilder : IApplicationFormBuilder
 
             var newField = fieldResult.Value!;
 
-            form.FieldComponents.Add(newField);
+            form.Questions.Add(newField);
         }
         return this;
     }

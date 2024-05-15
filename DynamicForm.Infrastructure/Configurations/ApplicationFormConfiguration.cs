@@ -18,7 +18,7 @@ public class ApplicationFormConfiguration : IEntityTypeConfiguration<Application
             .IsRequired()
             .HasMaxLength(1000);
 
-        builder.OwnsMany(x => x.FieldComponents);
+        builder.OwnsMany(x => x.Questions);
 
         builder.ToContainer("ApplicationForms")
             .HasPartitionKey(p => p.Id);

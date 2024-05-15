@@ -10,7 +10,7 @@ public interface IApplicationFormBuilder
         string description);
 
     IApplicationFormBuilder AddFieldComponents(
-        ICollection<CreateFieldComponent> fieldComponents);
+        ICollection<CreateQuestion> fieldComponents);
 
     Result<Domain.Models.ApplicationForm> BuildForm();
 }
