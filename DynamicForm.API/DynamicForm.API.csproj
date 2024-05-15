@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DynamicForm.Application\DynamicForm.Application.csproj" />
+    <ProjectReference Include="..\DynamicForm.Infrastructure\DynamicForm.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

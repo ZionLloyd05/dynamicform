@@ -1,29 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using DynamicForm.Application.DTOs;
+using DynamicForm.Domain.Models;
 
 namespace DynamicForm.Application.MapProfile;
 
 public class DynamicFormProfile : Profile
 {
-	public DynamicFormProfile()
-	{
-		CreateMap<Domain.Models.Application, CreatedApplication>()
-			.ForMember(dest => dest.FieldComponents, opt => opt.MapFrom(
-				src => src.FieldComponents));
+    public DynamicFormProfile()
+    {
+        CreateMap<ApplicationForm, CreatedApplicationForm>();
 
-        CreateMap<Domain.Models.FieldComponent, CreatedFieldComponent>()
-            .ForMember(dest => dest.Validator, opt => opt.MapFrom(
-                src => src.Validator));
+        CreateMap<FieldComponent, CreatedFieldComponent>();
 
-        CreateMap<Domain.Models.FieldComponent, CreatedFieldComponent>()
-            .ForMember(dest => dest.FieldMetaData, opt => opt.MapFrom(
-                src => src.FieldMetaData));
+        CreateMap<FieldComponentValidation, CreatedFieldComponentValidator>();
 
-        CreateMap<Domain.Models.FieldMetaData, CreatedFieldMetaData>();
+        CreateMap<FieldComponent, CreatedFieldComponent>();
+
+        CreateMap<FieldMetaData, CreatedFieldMetaData>();
     }
 }

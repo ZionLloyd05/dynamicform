@@ -3,14 +3,14 @@ using DynamicForm.Bases;
 
 namespace DynamicForm.Application.Interfaces.Builders;
 
-public interface IApplicationBuilder
+public interface IApplicationFormBuilder
 {
-    IApplicationBuilder AddFormDetails(
+    IApplicationFormBuilder AddFormDetails(
         string title,
         string description);
 
-    IApplicationBuilder AddFieldComponents(
+    IApplicationFormBuilder AddFieldComponents(
         ICollection<CreateFieldComponent> fieldComponents);
 
-    Result<Domain.Models.Application> BuildForm();
+    Result<Domain.Models.ApplicationForm> BuildForm();
 }

@@ -2,7 +2,7 @@
 
 namespace DynamicForm.Domain.Models;
 
-public class Application : BaseEntity<string>, IAuditableEntity
+public class ApplicationForm : BaseEntity<string>, IAuditableEntity
 {
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;

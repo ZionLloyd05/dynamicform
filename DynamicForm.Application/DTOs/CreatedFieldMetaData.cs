@@ -1,6 +1,6 @@
 ﻿namespace DynamicForm.Application.DTOs;
 
-internal class CreatedFieldMetaData
+public class CreatedFieldMetaData
 {
     public string Id { get; set; } = string.Empty;
     public string FieldComponentId { get; set; } = string.Empty;

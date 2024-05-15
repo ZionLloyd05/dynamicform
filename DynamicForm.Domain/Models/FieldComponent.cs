@@ -12,5 +12,5 @@ public class FieldComponent : BaseEntity<string>
     public ICollection<FieldMetaData>? FieldMetaData { get; set; }
 
     public string ApplicationId { get; set; }
-    public virtual Application Application { get; set; } = default!;
+    public virtual ApplicationForm Application { get; set; } = default!;
 }

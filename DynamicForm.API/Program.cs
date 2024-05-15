@@ -1,11 +1,15 @@
+using AutoMapper.Internal;
 using DynamicForm.Application.Implementations.Builders;
 using DynamicForm.Application.Implementations.Services;
 using DynamicForm.Application.Interfaces.Builders;
+using DynamicForm.Application.Interfaces.Data;
 using DynamicForm.Application.Interfaces.Services;
+using DynamicForm.Application.MapProfile;
 using DynamicForm.Application.Validations;
+using DynamicForm.Infrastructure.DataAccess;
 using FluentValidation;
-using ApplicationBuilder = DynamicForm.Application.Implementations.Builders.ApplicationBuilder;
-using IApplicationBuilder = DynamicForm.Application.Interfaces.Builders.IApplicationBuilder;
+using ApplicationFormBuilder = DynamicForm.Application.Implementations.Builders.ApplicationFormBuilder;
+using IApplicationFormBuilder = DynamicForm.Application.Interfaces.Builders.IApplicationFormBuilder;
 
 namespace DynamicForm.API
 {
@@ -25,12 +29,14 @@ namespace DynamicForm.API
             builder.Services
                 .AddValidatorsFromAssemblyContaining<FieldComponentValidator>();
 
-            builder.Services.AddScoped<IApplicationBuilder, ApplicationBuilder>();
-            builder.Services.AddScoped<IApplicationService, ApplicationService>();
+            builder.Services.AddScoped<IRepository, Repository>();
+            builder.Services.AddScoped<IApplicationFormBuilder, ApplicationFormBuilder>();
+            builder.Services.AddScoped<IApplicationFormService, ApplicationFormService>();
             builder.Services.AddScoped<IFieldComponentBuilder, FieldComponentBuilder>();
-            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            var app = builder.Build();
+            builder.Services.AddDbContext<DynamicFormDbContext>();
+
+           var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

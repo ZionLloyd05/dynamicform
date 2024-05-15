@@ -2,9 +2,9 @@
 
 namespace DynamicForm.Application.Validations;
 
-public class ApplicationValidator : AbstractValidator<Domain.Models.Application>
+public class ApplicationFormValidator : AbstractValidator<Domain.Models.ApplicationForm>
 {
-    public ApplicationValidator()
+    public ApplicationFormValidator()
     {
         RuleFor(form => form.Title)
             .NotEmpty()

@@ -1,6 +1,6 @@
 ﻿namespace DynamicForm.Application.DTOs;
 
-public class CreatedApplication
+public class CreatedApplicationForm
 {
     public string Id { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;

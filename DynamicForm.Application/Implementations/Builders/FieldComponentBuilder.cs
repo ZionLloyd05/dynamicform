@@ -54,20 +54,6 @@ public class FieldComponentBuilder : IFieldComponentBuilder
         fieldComponent.QuestionCategory = questionCategory;
         fieldComponent.QuestionType = questionType;
 
-        var validationResult = validator.Validate(fieldComponent);
-
-        if (!validationResult.IsValid)
-        {
-            var errors = new StringBuilder();
-            foreach (var error in validationResult.Errors)
-            {
-                errors.Append($"{error.PropertyName} - {error.ErrorMessage} | ");
-            }
-
-            fieldErrors.Append(errors.ToString());
-            hasErrors = true;
-        }
-
         return this;
     }
 
@@ -98,6 +84,18 @@ public class FieldComponentBuilder : IFieldComponentBuilder
     /// <returns>IFieldComponentBuilder</returns>
     public IFieldComponentBuilder AddFieldMetadata(ICollection<CreateFieldMetaData>? fieldMetaData)
     {
+
+        if (fieldMetaData == null)
+            return this;
+
+        fieldComponent.FieldMetaData = fieldMetaData.Select(fv => new FieldMetaData
+        {
+            Id = Guid.NewGuid().ToString(),
+            Label = fv.Label,
+            Value = fv.Value,
+            FieldComponentId = fieldComponent.Id
+        }).ToList();
+
         var validationResult = validator.Validate(fieldComponent);
 
         if (!validationResult.IsValid)
@@ -112,16 +110,6 @@ public class FieldComponentBuilder : IFieldComponentBuilder
             hasErrors = true;
         }
 
-        if (fieldMetaData == null || fieldMetaData.Count == 0)
-            return this;
-
-        fieldComponent.FieldMetaData = fieldMetaData.Select(fv => new FieldMetaData
-        {
-            Id = Guid.NewGuid().ToString(),
-            Label = fv.Label,
-            Value = fv.Value,
-            FieldComponentId = fieldComponent.Id
-        }).ToList();
 
         return this;
     }

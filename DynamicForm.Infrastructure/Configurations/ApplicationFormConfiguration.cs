@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DynamicForm.Infrastructure.Configurations;
 
-public class ApplicationConfiguration : IEntityTypeConfiguration<Application>
+public class ApplicationFormConfiguration : IEntityTypeConfiguration<ApplicationForm>
 {
-    public void Configure(EntityTypeBuilder<Application> builder)
+    public void Configure(EntityTypeBuilder<ApplicationForm> builder)
     {
         builder.HasKey(x => x.Id);
 
@@ -20,7 +20,7 @@ public class ApplicationConfiguration : IEntityTypeConfiguration<Application>
 
         builder.OwnsMany(x => x.FieldComponents);
 
-        builder.ToContainer("Applications")
+        builder.ToContainer("ApplicationForms")
             .HasPartitionKey(p => p.Id);
     }
 }

@@ -7,26 +7,26 @@ using FluentValidation;
 
 namespace DynamicForm.Application.Implementations.Builders;
 
-public class ApplicationBuilder : IApplicationBuilder
+public class ApplicationFormBuilder : IApplicationFormBuilder
 {
-    private readonly Domain.Models.Application form;
+    private readonly Domain.Models.ApplicationForm form;
 
     private StringBuilder formErrors;
     private bool hasErrors = false;
-    private readonly IValidator<Domain.Models.Application> formValidator;
+    private readonly IValidator<Domain.Models.ApplicationForm> formValidator;
     private readonly IValidator<FieldComponent> fieldValidator;
 
-    public ApplicationBuilder(
-        IValidator<Domain.Models.Application> formValidator,
+    public ApplicationFormBuilder(
+        IValidator<Domain.Models.ApplicationForm> formValidator,
         IValidator<FieldComponent> fieldValidator)
     {
         this.formValidator = formValidator;
         this.fieldValidator = fieldValidator;
         formErrors = new StringBuilder();
-        form = new Domain.Models.Application();
+        form = new Domain.Models.ApplicationForm();
     }
 
-    public IApplicationBuilder AddFormDetails(string title, string description)
+    public IApplicationFormBuilder AddFormDetails(string title, string description)
     {
         form.Title = title;
         form.Description = description;
@@ -48,7 +48,7 @@ public class ApplicationBuilder : IApplicationBuilder
         return this;
     }
 
-    public IApplicationBuilder AddFieldComponents(ICollection<CreateFieldComponent> fieldComponents)
+    public IApplicationFormBuilder AddFieldComponents(ICollection<CreateFieldComponent> fieldComponents)
     {
         foreach (var field in fieldComponents)
         {
@@ -80,7 +80,7 @@ public class ApplicationBuilder : IApplicationBuilder
         return this;
     }
 
-    public Result<Domain.Models.Application> BuildForm()
+    public Result<Domain.Models.ApplicationForm> BuildForm()
     {
         var validationErrors = formErrors.ToString();
 

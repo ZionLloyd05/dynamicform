@@ -28,7 +28,7 @@ public class FieldComponentValidator : AbstractValidator<FieldComponent>
             .WithMessage("Options are needed in fields value for drop down question type");
 
         RuleFor(field => field.FieldMetaData)
-            .Must(field => field?.Count == 2)
+            .Must(field => field?.Count > 0)
             .When(field => field.QuestionType == QuestionType.YesNo)
             .WithMessage("Options are needed in fields value for yes no question type");
 
