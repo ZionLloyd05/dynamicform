@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DynamicForm.Application.DTOs;
+﻿using DynamicForm.Application.DTOs;
 using DynamicForm.Application.Interfaces.Builders;
 using DynamicForm.Application.Interfaces.Data;
 using DynamicForm.Application.Interfaces.Services;
@@ -47,8 +46,8 @@ public partial class ApplicationFormService : IApplicationFormService
         {
             //@TODO: log exception somewhere
             return new Error(
-                "unable to save for now, please re-try again", 
-                "Internal.Error", 
+                "unable to save for now, please re-try again",
+                "Internal.Error",
                 true);
         }
 

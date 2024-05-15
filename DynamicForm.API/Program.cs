@@ -1,10 +1,8 @@
-using AutoMapper.Internal;
 using DynamicForm.Application.Implementations.Builders;
 using DynamicForm.Application.Implementations.Services;
 using DynamicForm.Application.Interfaces.Builders;
 using DynamicForm.Application.Interfaces.Data;
 using DynamicForm.Application.Interfaces.Services;
-using DynamicForm.Application.MapProfile;
 using DynamicForm.Application.Validations;
 using DynamicForm.Infrastructure.DataAccess;
 using FluentValidation;
@@ -36,7 +34,7 @@ namespace DynamicForm.API
 
             builder.Services.AddDbContext<DynamicFormDbContext>();
 
-           var app = builder.Build();
+            var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
