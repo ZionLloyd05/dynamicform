@@ -80,4 +80,27 @@ public partial class ApplicationFormServiceTests
 
         Assert.Equal(expectedErrorResponse.ErrorCode, error.ErrorCode);
     }
+
+    [Fact]
+    public void ShouldReturnValidationError_OnCreatingNewApplicationWithDropdownType_WithEmptyQuestionMetadata()
+    {
+        // given
+        CreateApplicationForm invalidApplicationForm = CreateApplicationWithEmptyMetadataLabel();
+
+        var expectedErrorResponse = new Error(
+            Messages.QUESTIONTYPE_ERROR,
+            ErrorCodes.INVALID_FORM,
+            false);
+
+        // when
+        Result<CreatedApplicationForm> createApplicationFormResult =
+            this.applicationFormService.CreateNewApplication(invalidApplicationForm);
+
+        // then
+        Assert.True(createApplicationFormResult.HasError);
+
+        var error = createApplicationFormResult.Error;
+
+        Assert.Equal(expectedErrorResponse.ErrorCode, error.ErrorCode);
+    }
 }

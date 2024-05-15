@@ -74,4 +74,28 @@ public partial class ApplicationFormServiceTests
 
         return applicationForm;
     }
+
+
+    public CreateApplicationForm CreateApplicationWithEmptyMetadataLabel()
+    {
+        var applicationForm = new CreateApplicationForm()
+        {
+            Title = "Hello",
+            Description = "description for hello",
+            Questions = new List<CreateQuestion>()
+            {
+                new CreateQuestion()
+                {
+                    Label = "Gender",
+                    Placeholder = "Gender",
+                    QuestionCategory = QuestionCategory.CustomQuestion,
+                    QuestionType = QuestionType.DropDown,
+                    QuestionMetaData = new List<CreateQuestionMetaData>(),
+                    Validator = new CreateQuestionValidator()
+                }
+            },
+        };
+
+        return applicationForm;
+    }
 }
